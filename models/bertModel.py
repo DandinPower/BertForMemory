@@ -28,7 +28,7 @@ from torch import nn
 from torch.nn import functional as F
 from torch.utils import data
 from torchvision import transforms
-import d2l.torch as d2l
+import d2ltorch as d2l
 nn_Module = nn.Module
 
 #################   WARNING   ################

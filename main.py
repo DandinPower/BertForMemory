@@ -6,7 +6,6 @@ import torch
 import csv
 from torch import nn
 import pandas as pd # 引用套件並縮寫為 pd  
-from models.bertModel import *
 
 vocab_size = 60005
 max_len = 512
