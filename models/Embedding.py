@@ -1,6 +1,8 @@
+from __future__ import division
 import torch
 from torch import nn
-
+import sys, time
+from progressbar import ProgressBar
 
 vocab_size = 60005
 max_len = 512
@@ -17,6 +19,8 @@ def Embeddings(tokens,segments,valid_len,vocab_size):
 def BatchEmbedding(batch_size, all_tokens_ids,all_segments,valid_lens,vocab_size):
     embeddingX = []
     i = 0
+    total = len(valid_lens)
+    pBar = ProgressBar().start()
     for tokens,segments,valid_len in zip(all_tokens_ids,all_segments,valid_lens):
         if (i % batch_size == 0):
             if (i != 0):
@@ -33,7 +37,9 @@ def BatchEmbedding(batch_size, all_tokens_ids,all_segments,valid_lens,vocab_size
             newTokens = torch.cat((newTokens,tokens),0)  
             newSegments = torch.cat((newSegments,segments),0) 
             newValidLen.append(valid_len)
-        i += 1
+        pBar.update(int((i / (total - 1)) * 100))
+        i += 1        
+    pBar.finish()
     return embeddingX
 
 def TextEmbedding(all_tokens_ids,all_segments,valid_lens,vocab_size):

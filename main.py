@@ -5,7 +5,7 @@ from models.File import CheckFileSize,TextToCsv,TensorToCsv,TextVersionTextToCsv
 from memory_profiler import profile
 
 def DatasetVersion():
-    max_len = 128
+    max_len = 256
     dataset_path = "dataset/reviews_small.csv"
     print("Read Dataset...\n")
     vocab = LoadVocab()
@@ -22,6 +22,7 @@ def DatasetVersion():
     embeddingX = BatchEmbedding(32, all_tokens_ids, all_segments, valid_lens, len(vocab))
     #print(embeddingX[0])
     #print(embeddingX[1])
+    print("Output csv...")
     TensorToCsv('csv/embedding.csv', embeddingX)
 
 def TextVersion():
