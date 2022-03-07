@@ -51,8 +51,20 @@ def CompareSize():
     paddingSize = CheckFileSize('csv/padding.csv')
     embeddingSize = CheckFileSize('csv/embedding.csv')
 
+@profile(precision=10)
+def Memory():
+    import torch
+    from torch import nn
+    vocab_size = 60005
+    max_len = 512
+    num_hiddens = 256
+    token_embedding = nn.Embedding(vocab_size, num_hiddens)
+    segment_embedding = nn.Embedding(2, num_hiddens)
+    pos_embedding = nn.Parameter(torch.randn(1, max_len,num_hiddens))    
+
 if __name__ == "__main__":
     #TextVersion()
     DatasetVersion()
-    CompareSize()
+    #CompareSize()
+    #Memory()
     

@@ -3,7 +3,26 @@ import psutil
 import csv
 import pandas as pd
 import sys, time
+import os
 from progressbar import ProgressBar
+
+class MemoryCounter:
+    def __init__(self):
+        self.data = []
+        self.process = psutil.Process(os.getpid())
+    
+    def Add(self):
+        self.data.append(self.process.memory_info()[0])
+
+    def GetData(self,a,b):
+        value = self.data[b] - self.data[a]
+        self.ShowBytes(value)
+        
+    def ShowBytes(self,byte):
+        print(f'{byte}bytes, {byte/1024}kbs, {byte/(1024*1024)}mbs')
+    
+    def Clear(self):
+        self.data.clear()
 
 def CheckFileSize(path):
     p = psutil.Process()

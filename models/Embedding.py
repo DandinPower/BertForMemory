@@ -3,10 +3,12 @@ import torch
 from torch import nn
 import sys, time
 from progressbar import ProgressBar
+from .File import MemoryCounter
 
 vocab_size = 60005
 max_len = 512
 num_hiddens = 256
+
 token_embedding = nn.Embedding(vocab_size, num_hiddens)
 segment_embedding = nn.Embedding(2, num_hiddens)
 pos_embedding = nn.Parameter(torch.randn(1, max_len,num_hiddens))
@@ -31,7 +33,7 @@ def BatchEmbedding(batch_size, all_tokens_ids,all_segments,valid_lens,vocab_size
                 temp = Embeddings(newTokens,newSegments,newValidLen,vocab_size)
                 embeddingX.append(temp)
             newTokens = tokens 
-            newSegments = segments 
+            newSegments = segments
             newValidLen = [valid_len] 
         else:
             newTokens = torch.cat((newTokens,tokens),0)  
