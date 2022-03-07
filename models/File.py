@@ -1,6 +1,9 @@
+from __future__ import division
 import psutil
 import csv
 import pandas as pd
+import sys, time
+from progressbar import ProgressBar
 
 def CheckFileSize(path):
     p = psutil.Process()
@@ -24,7 +27,10 @@ def TextToCsv(path,texts):
 
 def TensorToCsv(path,tensor):
     with open(path,'w',newline='',encoding='utf-8')as csvfile:
+        pBar = ProgressBar().start()
         writer = csv.writer(csvfile)
+        z = 0
+        total = len(tensor)
         for item in tensor:
             temp = []
             for i in range(item.shape[0]):
@@ -32,6 +38,9 @@ def TensorToCsv(path,tensor):
                     for m in range(item.shape[2]):
                         temp.append(item.detach().numpy()[i][j][m])
             writer.writerow(temp)
+            pBar.update(int((z / (total - 1)) * 100))
+            z+=1
+        pBar.finish()
 
 def TextVersionTextToCsv(path,texts):
     with open(path,'w',newline='',encoding='utf-8')as csvfile:

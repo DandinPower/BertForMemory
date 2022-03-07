@@ -6,7 +6,7 @@ from memory_profiler import profile
 
 def DatasetVersion():
     max_len = 256
-    dataset_path = "dataset/reviews_small.csv"
+    dataset_path = "dataset/reviews_20000.csv"
     print("Read Dataset...\n")
     vocab = LoadVocab()
     texts= ReadDataset(dataset_path)
