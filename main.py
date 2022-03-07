@@ -22,7 +22,7 @@ def DatasetVersion():
     embeddingX = BatchEmbedding(32, all_tokens_ids, all_segments, valid_lens, len(vocab))
     print(embeddingX[0])
     #print(embeddingX[1])
-    print(getTensorSize(embeddingX))
+    print(getTensorSize(embeddingX[0])*len(embeddingX))
     print("Output csv...")
     TensorToCsv('csv/embedding.csv', embeddingX)
 
